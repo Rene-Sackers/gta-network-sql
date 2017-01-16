@@ -70,24 +70,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="resources\sqlcompact\meta.xml" />
-    <Content Include="resources\sqlcompact\Server\Bin\EntityFramework.dll" />
-    <Content Include="resources\sqlcompact\Server\Bin\EntityFramework.SqlServer.dll" />
-    <Content Include="resources\sqlcompact\Server\Bin\EntityFramework.SqlServer.xml" />
-    <Content Include="resources\sqlcompact\Server\Bin\EntityFramework.SqlServerCompact.dll" />
-    <Content Include="resources\sqlcompact\Server\Bin\EntityFramework.SqlServerCompact.xml" />
-    <Content Include="resources\sqlcompact\Server\Bin\EntityFramework.xml" />
-    <Content Include="resources\sqlcompact\Server\Bin\SqlCompactExample.dll" />
-    <Content Include="resources\sqlcompact\Server\Bin\SqlCompactExample.pdb" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="resources\sqlcompact\Server\Bin\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="resources\sqlcompact\Server\Bin\SqlCompactExample.dll.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /E /Y /C "$(ProjectDir)resources" "%25USERPROFILE%25\Desktop\GTANServer\resources"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

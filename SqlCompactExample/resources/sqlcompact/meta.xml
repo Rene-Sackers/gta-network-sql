@@ -1,0 +1,15 @@
+﻿<meta>
+    <info name="SQL Compact Example" description="SQL Compact Example" author="Eraknelo" version="1.0" />
+
+    <!-- External -->
+    <!--<script src="Server/Bin/System.Data.SQLite.EF6.dll" type="server" lang="compiled" />-->
+
+    <!-- References -->
+    <!--<assembly ref="System.Data.SQLite.EF6.dll" />-->
+
+    <!-- Server -->
+    <script src="Server/Bin/SqlCompactExample.dll" type="server" lang="compiled" />
+
+    <!-- Client -->
+    <!--<script src="Client/Main.js" type="client" lang="javascript" />-->
+</meta>

@@ -20,30 +20,36 @@ namespace SqlCompactExample.resources.sqlcompact.Server
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DefaultDbContext, MigrationConfiguration>());
 
-            var uniqueUsers = ContextFactory.Instance.UserProfiles.Count();
-            API.consoleOutput("Unique players: " + uniqueUsers);
+            using (var database = ContextFactory.Instance)
+            {
+                var uniqueUsers = ContextFactory.Instance.UserProfiles.Count();
+                API.consoleOutput("Unique players: " + uniqueUsers);
+            }
         }
 
         private void OnPlayerConnected(Client player)
         {
-            var userProfile = ContextFactory.Instance.UserProfiles.FirstOrDefault(up => up.SocialClubName == player.socialClubName);
-
-            if (userProfile == null)
+            using (var database = ContextFactory.Instance)
             {
-                API.consoleOutput("New player: " + player.socialClubName);
+                var userProfile = database.UserProfiles.FirstOrDefault(up => up.SocialClubName == player.socialClubName);
 
-                userProfile = new UserProfile { SocialClubName = player.socialClubName };
-                ContextFactory.Instance.UserProfiles.Add(userProfile);
+                if (userProfile == null)
+                {
+                    API.consoleOutput("New player: " + player.socialClubName);
+
+                    userProfile = new UserProfile { SocialClubName = player.socialClubName };
+                    database.UserProfiles.Add(userProfile);
+                }
+                else
+                {
+                    API.consoleOutput($"Returning player: {player.socialClubName}. Last display name: {userProfile.LastDisplayName}, current display name: {player.name}");
+                }
+
+                userProfile.LastIp = player.address;
+                userProfile.LastDisplayName = player.name;
+
+                database.SaveChanges();
             }
-            else
-            {
-                API.consoleOutput($"Returning player: {player.socialClubName}. Last display name: {userProfile.LastDisplayName}, current display name: {player.name}");
-            }
-
-            userProfile.LastIp = player.address;
-            userProfile.LastDisplayName = player.name;
-
-            ContextFactory.Instance.SaveChanges();
         }
     }
 }
